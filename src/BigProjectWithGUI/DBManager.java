@@ -304,6 +304,30 @@ public class DBManager {
             }
     }
 
+    public ArrayList<ViewFlightsName>  getFlightName(){
+        ArrayList<ViewFlightsName> flightsName = new ArrayList<>();
+
+        String s = new String();
+        try{
+            PreparedStatement st = connection.prepareStatement("SELECT d.name as departure_city, a.name as arrival_city, f.departure_time as departure_time, f.id as id FROM flights f, cities d, cities a where f.departure_city_id=d.id and f.arrival_city_id=a.id");
+           // st.setLong(1, id);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()){
+                String departure_city = rs.getString("departure_city");
+                String arrival_city = rs.getString("arrival_city");
+                String departure_time = rs.getString("departure_time");
+                Long id = rs.getLong("id");
+                s=departure_city+"-"+arrival_city+"-"+departure_time;
+                ViewFlightsName view = new ViewFlightsName(id, s);
+                flightsName.add(view);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return flightsName;
+    }
+
     public ArrayList<Tickets> getAllTickets(){
 
         ArrayList<Tickets> tickets = new ArrayList<>();

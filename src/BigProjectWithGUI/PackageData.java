@@ -15,12 +15,15 @@ public class PackageData implements Serializable {
     private Flights flight;
     private ArrayList<Tickets> tickets;
     private Tickets ticket;
+    private ArrayList<ViewFlightsName> flightsName;
+    private String flightName;
 
     public PackageData(){}
     public PackageData(String operationType, String clientType,
                        ArrayList<Aircrafts> aircrafts, Aircrafts aircraft,
                        ArrayList<Cities> cities, Cities city, ArrayList<Flights> flights, Flights flight,
-                       ArrayList<Tickets> tickets, Tickets ticket){
+                       ArrayList<Tickets> tickets, Tickets ticket,
+                       ArrayList<ViewFlightsName>  flightsName, String flightName){
         this.operationType=operationType;
         this.clientType=clientType;
         this.aircrafts=aircrafts;
@@ -31,6 +34,8 @@ public class PackageData implements Serializable {
         this.flight=flight;
         this.tickets=tickets;
         this.ticket=ticket;
+        this.flightsName=flightsName;
+        this.flightName=flightName;
     }
 
     public void setOperationType(String operationType){this.operationType=operationType;}
@@ -79,6 +84,12 @@ public class PackageData implements Serializable {
     public void addTicket(Tickets ticket){
         tickets.add(ticket);
     }
+
+    public void setFlightsName(ArrayList<ViewFlightsName>  flightsName){this.flightsName=flightsName;}
+    public ArrayList<ViewFlightsName>  getFlightsName(){return flightsName;}
+
+    public void setFlightName(String flightName){this.flightName=flightName;}
+    public String getFlightName(){return flightName;}
 
 
 

@@ -1,0 +1,10 @@
+milk
+300
+salt
+500
+sugar
+600
+bread
+50
+meat
+1500

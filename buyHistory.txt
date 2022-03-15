@@ -1,0 +1,6 @@
+milk
+300
+Wed Jan 12 18:04:21 ALMT 2022
+sugar
+600
+Wed Jan 12 18:04:21 ALMT 2022

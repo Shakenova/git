@@ -14,8 +14,8 @@ public class Kassir {
             Socket socket = new Socket("localhost", 5555);
             ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
-            PackageData pd = null;
-
+            PackageData pd = new PackageData("LIST FLIGHTS NAME", clientType, null, null, null, null, null, null, null, null, null, null);
+            outputStream.writeObject(pd);
             while (true) {
                 System.out.println("PRESS [1] TO LIST FlIGHTS");
                 System.out.println("PRESS [2] TO ADD TICKET");
@@ -30,7 +30,7 @@ public class Kassir {
 //            endless();
                 //System.out.println("Waiting request from kassir");
                 if (choice.equals("1")) {
-                    pd = new PackageData("LIST FLIGHTS", clientType, null, null, null, null, null, null, null, null);
+                    pd = new PackageData("LIST FLIGHTS", clientType, null, null, null, null, null, null, null, null,null,null);
                     outputStream.writeObject(pd);
                    // System.out.println("Waiting request from server");
                     pd = (PackageData) inputStream.readObject();
@@ -54,12 +54,12 @@ public class Kassir {
                     System.out.println("Enter ticket_type:");
                     String ticket_type=in.next();
                     Tickets ticket = new Tickets(null,flight_id,name,surname,passport_number,ticket_type);
-                    pd = new PackageData("ADD TICKET",clientType,null,null,null,null,null,null,null,ticket);
+                    pd = new PackageData("ADD TICKET",clientType,null,null,null,null,null,null,null,ticket,null,null);
                     outputStream.writeObject(pd);
                     pd=(PackageData) inputStream.readObject();
                     System.out.println(pd.getOperationType());
                 }else if(choice.equals("3")){
-                    pd = new PackageData("LIST TICKETS", clientType, null, null, null, null, null, null, null, null);
+                    pd = new PackageData("LIST TICKETS", clientType, null, null, null, null, null, null, null, null,null,null);
                     outputStream.writeObject(pd);
                     //System.out.println("Waiting request from server");
                     pd = (PackageData) inputStream.readObject();
@@ -102,7 +102,7 @@ public class Kassir {
                         String ticket_type = in.next();
                         ticket = new Tickets(id, null, null, null, null, ticket_type);
                     }
-                    pd = new PackageData("EDIT TICKET", clientType, null, null, null, null, null, null, null, ticket);
+                    pd = new PackageData("EDIT TICKET", clientType, null, null, null, null, null, null, null, ticket,null,null);
                     outputStream.writeObject(pd);
                     pd = (PackageData) inputStream.readObject();
                     System.out.println(pd.getOperationType());
@@ -110,7 +110,7 @@ public class Kassir {
                     System.out.println("Enter id for delete:");
                     Long id=in.nextLong();
                     Tickets ticket=new Tickets(id,null,null,null,null,null);
-                    pd = new PackageData("DELETE TICKET",clientType,null,null,null,null,null,null,null,ticket);
+                    pd = new PackageData("DELETE TICKET",clientType,null,null,null,null,null,null,null,ticket,null,null);
                     outputStream.writeObject(pd);
                     pd=(PackageData) inputStream.readObject();
                 }else if(choice.equals("0")){

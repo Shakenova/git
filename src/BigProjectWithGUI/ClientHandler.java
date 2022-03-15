@@ -1,6 +1,8 @@
 package BigProjectWithGUI;
 
 
+import MiniProject.Students;
+
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -25,40 +27,40 @@ public class ClientHandler extends Thread {
             ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
             PackageData data = null;
 
-           while((data = (PackageData) inputStream.readObject()).getClientType()!=null) {
+           while((data = (PackageData) inputStream.readObject())!=null) {
                PackageData response = null;
 
               if (data.getClientType().equals("ADMIN")) {
                   if(data.getOperationType().equals("LIST CITIES")) {
                       //ArrayList<Cities> cities = db.getAllCities();
-                      response = new PackageData("LIST CITIES SEND", "SERVER", null, null,  db.getAllCities(), null, null, null, null, null);
+                      response = new PackageData("LIST CITIES SEND", "SERVER", null, null,  db.getAllCities(), null, null, null, null, null, null, null);
 //                      System.out.println(response.getOperationType());
 //                      outputStream.writeObject(response);
                     }else if(data.getOperationType().equals("LIST AIRCRAFTS")) {
                       ArrayList<Aircrafts> aircrafts = db.getAllAircrafts();
-                      response = new PackageData("LIST AIRCRAFTS SEND", "SERVER", aircrafts, null, null, null, null, null, null, null);
+                      response = new PackageData("LIST AIRCRAFTS SEND", "SERVER", aircrafts, null, null, null, null, null, null, null, null, null);
 //                      System.out.println(response.getOperationType());
 //                      outputStream.writeObject(response);
                     }else if(data.getOperationType().equals("LIST FLIGHTS")){
                       ArrayList<Flights> flights = db.getAllFlights();
-                      response = new PackageData("LIST FLIGHTS SEND", "SERVER", null, null, null, null, flights, null, null, null);
+                      response = new PackageData("LIST FLIGHTS SEND", "SERVER", null, null, null, null, flights, null, null, null, null, null);
 //                      System.out.println(response.getOperationType());
 //                      outputStream.writeObject(response);
                   }else if(data.getOperationType().equals("ADD CITY")){
                       Cities city=data.getCity();
                       db.addCity(city);
-                      response = new PackageData("CITY ADDED","SERVER",null,null,null,city,null,null,null,null);
+                      response = new PackageData("CITY ADDED","SERVER",null,null,null,city,null,null,null,null, null, null);
 
                   }else if(data.getOperationType().equals("ADD AIRCRAFT")){
                       Aircrafts aircraft=data.getAircraft();
                       db.addAircraft(aircraft);
-                      response = new PackageData("AIRCRAFT ADDED","SERVER",null,aircraft,null,null,null,null,null,null);
+                      response = new PackageData("AIRCRAFT ADDED","SERVER",null,aircraft,null,null,null,null,null,null, null, null);
 
                   }else if(data.getOperationType().equals("ADD FLIGHT")){
                       Flights flight = data.getFlight();
                       //System.out.println(flight.getEconom_place_price());
                       db.addFlight(flight);
-                      response = new PackageData("FLIGHT ADDED","SERVER",null,null,null,null,null,flight,null,null);
+                      response = new PackageData("FLIGHT ADDED","SERVER",null,null,null,null,null,flight,null,null, null, null);
 
                   }else if(data.getOperationType().equals("EDIT CITY")){
                       Cities city = data.getCity();
@@ -71,7 +73,7 @@ public class ClientHandler extends Thread {
                           nCity.setShort_name(city.getShort_name());
                       }
                       db.updateCity(nCity);
-                      response = new PackageData("CITY EDITED","SERVER",null,null,null,null,null,null,null,null);
+                      response = new PackageData("CITY EDITED","SERVER",null,null,null,null,null,null,null,null, null, null);
 
                   }else if(data.getOperationType().equals("EDIT AIRCRAFT")){
                       Aircrafts aircraft = data.getAircraft();
@@ -86,7 +88,7 @@ public class ClientHandler extends Thread {
                           nAircraft.setEClassCapacity(aircraft.getEClassCapacity());
                       }
                       db.updateAircraft(nAircraft);
-                      response = new PackageData("AIRCRAFT EDITED","SERVER",null,null,null,null,null,null,null,null);
+                      response = new PackageData("AIRCRAFT EDITED","SERVER",null,null,null,null,null,null,null,null, null, null);
 
                   }else if(data.getOperationType().equals("EDIT FLIGHT")){
                       Flights flight = data.getFlight();
@@ -105,61 +107,84 @@ public class ClientHandler extends Thread {
                           nFlight.setBusiness_place_price(flight.getBusiness_place_price());
                       }
                       db.updateFlight(nFlight);
-                      response = new PackageData("FLIGHT EDITED","SERVER",null,null,null,null,null,null,null,null);
+                      response = new PackageData("FLIGHT EDITED","SERVER",null,null,null,null,null,null,null,null, null, null);
 
                   }else if(data.getOperationType().equals("DELETE CITY")){
                       Cities city= data.getCity();
                       db.deleteCity(city.getId());
-                      response = new PackageData("CITY DELETED","SERVER",null,null,null,null,null,null,null,null);
+                      response = new PackageData("CITY DELETED","SERVER",null,null,null,null,null,null,null,null, null, null);
                   }else if(data.getOperationType().equals("DELETE AIRCRAFT")){
                       Aircrafts aircraft= data.getAircraft();
                       db.deleteAircraft(aircraft.getId());
-                      response = new PackageData("AICRAFT DELETED","SERVER",null,null,null,null,null,null,null,null);
+                      response = new PackageData("AICRAFT DELETED","SERVER",null,null,null,null,null,null,null,null, null, null);
                   }else if(data.getOperationType().equals("DELETE FLIGHT")){
                       Flights flight= data.getFlight();
                       db.deleteFlight(flight.getId());
-                      response = new PackageData("FLIGHT DELETED","SERVER",null,null,null,null,null,null,null,null);
+                      response = new PackageData("FLIGHT DELETED","SERVER",null,null,null,null,null,null,null,null, null, null);
                   }
                   System.out.println(response.getOperationType());
                   outputStream.writeObject(response);
               }else if(data.getClientType().equals("KASSIR")){
+
                   if (data.getOperationType().equals("LIST FLIGHTS")){
                       ArrayList<Flights> flights = db.getAllFlights();
-                      response = new PackageData("LIST FLIGHTS SEND", "SERVER", null, null, null, null, flights, null, null, null);
-//                      System.out.println(response.getOperationType());
-//                      outputStream.writeObject(response);
+                      response = new PackageData("LIST FLIGHTS SEND", "SERVER", null, null, null, null, flights, null, null, null, null, null);
                   }else if(data.getOperationType().equals("ADD TICKET")){
+                      System.out.println(data.getOperationType());
+                      ArrayList<Tickets> tickets=new ArrayList<>();
                       Tickets ticket=data.getTicket();
                       db.addTicket(ticket);
-                      response = new PackageData("TICKET ADDED","SERVER",null,null,null,null,null,null,null,ticket);
+                      tickets=db.getAllTickets();
+                      response = new PackageData("TICKET ADDED","SERVER",null,null,null,null,null,null,tickets,ticket, null, null);
 
                   }else if(data.getOperationType().equals("LIST TICKETS")){
+                      System.out.println("Client#"+id+" requested "+data.getOperationType());
                       ArrayList<Tickets> tickets = db.getAllTickets();
-                      response = new PackageData("LIST TICKETS SEND", "SERVER", null, null, null, null, null, null, tickets, null);
+                      ArrayList<ViewFlightsName> flightsName=db.getFlightName();
+                      System.out.println(tickets);
+                      //System.out.println(flightsName);
+                      response = new PackageData("LIST TICKETS SEND", "SERVER", null, null, null, null, null, null, tickets, null, flightsName, null);
 //
+
                   }else if(data.getOperationType().equals("EDIT TICKET")){
+                      ArrayList<Tickets> tickets= new ArrayList<>();
                       Tickets ticket= data.getTicket();
                       Tickets nTicket =db.getTicket(ticket.getId());
                       if(ticket.getFlight_id()!=null){
                           nTicket.setFlight_id(ticket.getFlight_id());
-                      }else if(ticket.getName()!=null){
+                      }
+                          if(ticket.getName()!=null){
                           nTicket.setName(ticket.getName());
-                      }else if(ticket.getSurname()!=null){
+                      }
+                          if(ticket.getSurname()!=null){
                           nTicket.setSurname(ticket.getSurname());
-                      }else if(ticket.getPassport_number()!=null){
+                      }
+                          if(ticket.getPassport_number()!=null){
                           nTicket.setPassport_number(ticket.getPassport_number());
-                      }else if(ticket.getTicket_type()!=null){
+                      }
+                          if(ticket.getTicket_type()!=null){
                           nTicket.setTicket_type(ticket.getTicket_type());
                       }
                       db.updateTicket(nTicket);
-                      response = new PackageData("TICKET EDITED","SERVER",null,null,null,null,null,null,null,null);
+                      tickets=db.getAllTickets();
+                      response = new PackageData("TICKET EDITED","SERVER",null,null,null,null,null,null,tickets,null, null, null);
 
                   }else if(data.getOperationType().equals("DELETE TICKET")){
                       Tickets ticket= data.getTicket();
                       db.deleteTicket(ticket.getId());
-                      response = new PackageData("TICKET DELETED","SERVER",null,null,null,null,null,null,null,null);
+                      response = new PackageData("TICKET DELETED","SERVER",null,null,null,null,null,null,null,null, null, null);
+                  }else if(data.getOperationType().equals("PREPARE")){
+                      ArrayList<ViewFlightsName> flightsName=db.getFlightName();
+                      ArrayList<Tickets> tickets = db.getAllTickets();
+                      //System.out.println(flightsName);
+                      response = new PackageData("PREPARE SEND", "SERVER", null, null, null, null, null, null, tickets, null, flightsName, null);
+                  }else if(data.getOperationType().equals("GET_TICKET")){
+                     // System.out.println("sent ticket data:"+data.getTicket());
+                      Tickets ticket=db.getTicket(data.getTicket().getId());
+                      //System.out.println("selected ticket: "+ticket);
+                      response=new PackageData("TICKET SENT","SERVER",null,null,null,null,null,null,null,ticket,null,null);
                   }
-                  System.out.println(response.getOperationType());
+                  //System.out.println(response.getOperationType());
                   outputStream.writeObject(response);
               }else{
                   System.out.println("Data empty");

@@ -39,7 +39,7 @@ public class Admin {
 
 //            endless();
             if(choice.equals("1")){
-                pd= new PackageData("LIST CITIES", clientType, null,null,null,null,null,null,null,null);
+                pd= new PackageData("LIST CITIES", clientType, null,null,null,null,null,null,null,null,null,null);
                 outputStream.writeObject(pd);
                 //System.out.println("Waiting request from server");
                 pd=(PackageData) inputStream.readObject();
@@ -53,7 +53,7 @@ public class Admin {
                 }
 
             }else if(choice.equals("2")){
-                pd= new PackageData("LIST AIRCRAFTS",clientType, null,null,null,null,null,null,null,null);
+                pd= new PackageData("LIST AIRCRAFTS",clientType, null,null,null,null,null,null,null,null,null,null);
                 outputStream.writeObject(pd);
                // System.out.println("Waiting request from server");
                 pd=(PackageData) inputStream.readObject();
@@ -67,7 +67,7 @@ public class Admin {
                 }
 
             }else if(choice.equals("3")){
-                pd= new PackageData("LIST FLIGHTS",clientType, null,null,null,null,null,null,null,null);
+                pd= new PackageData("LIST FLIGHTS",clientType, null,null,null,null,null,null,null,null,null,null);
                 outputStream.writeObject(pd);
                // System.out.println("Waiting request from server");
                 pd=(PackageData) inputStream.readObject();
@@ -87,7 +87,7 @@ public class Admin {
                 System.out.println("Enter short name:");
                 String short_name=in.next();
                 Cities city = new Cities(null,name,country,short_name);
-                pd = new PackageData("ADD CITY",clientType,null,null,null,city,null,null,null,null);
+                pd = new PackageData("ADD CITY",clientType,null,null,null,city,null,null,null,null,null,null);
                 outputStream.writeObject(pd);
                 pd=(PackageData) inputStream.readObject();
                 System.out.println(pd.getOperationType());
@@ -102,7 +102,7 @@ public class Admin {
                 System.out.println("Enter econom class capacity:");
                 Long econom_class_capacity=in.nextLong();
                 Aircrafts aircraft = new Aircrafts(null,name,model,business_class_capacity,econom_class_capacity);
-                pd = new PackageData("ADD AIRCRAFT", clientType,null,aircraft,null,null,null,null,null,null);
+                pd = new PackageData("ADD AIRCRAFT", clientType,null,aircraft,null,null,null,null,null,null,null,null);
                 outputStream.writeObject(pd);
                 pd=(PackageData) inputStream.readObject();
                 System.out.println(pd.getOperationType());
@@ -120,7 +120,7 @@ public class Admin {
                 System.out.println("Enter business_place_price:");
                 Long business_place_price=in.nextLong();
                 Flights flight = new Flights(null,aircraft_id,departure_city_id,arrival_city_id,departure_time,econom_place_price,business_place_price);
-                pd = new PackageData("ADD FLIGHT",clientType,null,null,null,null,null,flight,null,null);
+                pd = new PackageData("ADD FLIGHT",clientType,null,null,null,null,null,flight,null,null,null,null);
                 outputStream.writeObject(pd);
                 pd=(PackageData) inputStream.readObject();
                 System.out.println(pd.getOperationType());
@@ -145,7 +145,7 @@ public class Admin {
                     String short_name=in.next();
                     city = new Cities(id,null,null,short_name);
                 }
-                pd=new PackageData("EDIT CITY",clientType,null,null,null,city,null,null,null,null);
+                pd=new PackageData("EDIT CITY",clientType,null,null,null,city,null,null,null,null,null,null);
                 outputStream.writeObject(pd);
                 pd=(PackageData) inputStream.readObject();
                 System.out.println(pd.getOperationType());
@@ -175,7 +175,7 @@ public class Admin {
                     Long econom_class_capacity=in.nextLong();
                     aircraft = new Aircrafts(id,null,null,null,econom_class_capacity);
                 }
-                pd = new PackageData("EDIT AIRCRAFT",clientType,null,aircraft,null,null,null,null,null,null);
+                pd = new PackageData("EDIT AIRCRAFT",clientType,null,aircraft,null,null,null,null,null,null,null,null);
                 outputStream.writeObject(pd);
                 pd=(PackageData) inputStream.readObject();
                 System.out.println(pd.getOperationType());
@@ -215,28 +215,28 @@ public class Admin {
                     Long business_place_price=in.nextLong();
                     flight=new Flights(id,null,null,null,null,null, business_place_price);
                 }
-                pd = new PackageData("EDIT FLIGHT",clientType,null,null,null,null,null,flight,null,null);
+                pd = new PackageData("EDIT FLIGHT",clientType,null,null,null,null,null,flight,null,null,null,null);
                 outputStream.writeObject(pd);
                 pd=(PackageData) inputStream.readObject();
             }else if(choice.equals("10")){
                 System.out.println("Enter id for delete:");
                 Long id=in.nextLong();
                 Cities city=new Cities(id,null,null,null);
-                pd = new PackageData("DELETE CITY",clientType,null,null,null,city,null,null,null,null);
+                pd = new PackageData("DELETE CITY",clientType,null,null,null,city,null,null,null,null,null,null);
                 outputStream.writeObject(pd);
                 pd=(PackageData) inputStream.readObject();
             }else if(choice.equals("11")){
                 System.out.println("Enter id for delete:");
                 Long id=in.nextLong();
                 Aircrafts aircraft=new Aircrafts(id,null,null,null,null);
-                pd = new PackageData("DELETE AIRCRAFT",clientType,null,aircraft,null,null,null,null,null,null);
+                pd = new PackageData("DELETE AIRCRAFT",clientType,null,aircraft,null,null,null,null,null,null,null,null);
                 outputStream.writeObject(pd);
                 pd=(PackageData) inputStream.readObject();
             }else if(choice.equals("12")){
                 System.out.println("Enter id for delete:");
                 Long id=in.nextLong();
                 Flights flight=new Flights(id,null,null,null,null,null,null);
-                pd = new PackageData("DELETE FLIGHT",clientType,null,null,null,null,null,flight,null,null);
+                pd = new PackageData("DELETE FLIGHT",clientType,null,null,null,null,null,flight,null,null,null,null);
                 outputStream.writeObject(pd);
                 pd=(PackageData) inputStream.readObject();
             }else if (choice.equals("0")){
